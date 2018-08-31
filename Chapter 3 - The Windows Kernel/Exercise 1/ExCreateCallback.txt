@@ -1,0 +1,15 @@
+...
+
+
+fffff800`02c9bba0 488d4110        lea     rax,[rcx+10h]
+fffff800`02c9bba4 c70143616c6c    mov     dword ptr [rcx],6C6C6143h
+fffff800`02c9bbaa 44886120        mov     byte ptr [rcx+20h],r12b
+fffff800`02c9bbae 48894008        mov     qword ptr [rax+8],rax
+fffff800`02c9bbb2 488900          mov     qword ptr [rax],rax
+
+...
+
+fffff800`02c9bc3a 415c            pop     r12
+fffff800`02c9bc3c 5f              pop     rdi
+fffff800`02c9bc3d 5e              pop     rsi
+fffff800`02c9bc3e c3              ret
