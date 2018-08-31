@@ -1,0 +1,14 @@
+fffff800`028e6710 488d4b30        lea     rcx,[rbx+30h]
+fffff800`028e6714 488d5310        lea     rdx,[rbx+10h]
+fffff800`028e6718 488d4360        lea     rax,[rbx+60h]
+fffff800`028e671c 41bbfb020000    mov     r11d,2FBh
+fffff800`028e6722 6644891b        mov     word ptr [rbx],r11w
+fffff800`028e6726 488911          mov     qword ptr [rcx],rdx		; here is Flink (next)
+fffff800`028e6729 48895108        mov     qword ptr [rcx+8],rdx		; here is Blink (previous) at an offset of 8 bytes
+
+
+fffff800`028e6749 c3              ret
+
+kd> dt nt!_LIST_ENTRY
+   +0x000 Flink            : Ptr64 _LIST_ENTRY
+   +0x008 Blink            : Ptr64 _LIST_ENTRY

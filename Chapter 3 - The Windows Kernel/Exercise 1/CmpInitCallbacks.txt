@@ -1,0 +1,32 @@
+...
+
+nt!CmpInitCallbacks:
+fffff800`02c47910 4883ec28        sub     rsp,28h
+fffff800`02c47914 488d05d5e0e7ff  lea     rax,[nt!CallbackListHead (fffff800`02ac59f0)]
+fffff800`02c4791b 4533c9          xor     r9d,r9d
+fffff800`02c4791e 488d15a3a1dbff  lea     rdx,[nt!`string' (fffff800`02a01ac8)]
+fffff800`02c47925 488d0de481e0ff  lea     rcx,[nt!CmLegacyAltitude (fffff800`02a4fb10)]
+fffff800`02c4792c 488905c5e0e7ff  mov     qword ptr [nt!CallbackListHead+0x8 (fffff800`02ac59f8)],rax
+fffff800`02c47933 488905b6e0e7ff  mov     qword ptr [nt!CallbackListHead (fffff800`02ac59f0)],rax
+
+...
+
+* CallbackListHead is a _LIST_ENTRY *
+
+Opened log file 'logs\CmpInitCallbacks.txt'
+kd> dt nt!_ERESOURCE fffff800`02ac59f0
+   +0x000 SystemResourcesList : _LIST_ENTRY [ 0x00000000`00000000 - 0x0 ]
+   +0x010 OwnerTable       : (null) 
+   +0x018 ActiveCount      : 0n0
+   +0x01a Flag             : 0
+   +0x020 SharedWaiters    : (null) 
+   +0x028 ExclusiveWaiters : (null) 
+   +0x030 OwnerEntry       : _OWNER_ENTRY
+   +0x040 ActiveEntries    : 0
+   +0x044 ContentionCount  : 0
+   +0x048 NumberOfSharedWaiters : 0
+   +0x04c NumberOfExclusiveWaiters : 0
+   +0x050 Reserved2        : (null) 
+   +0x058 Address          : (null) 
+   +0x058 CreatorBackTraceIndex : 0
+   +0x060 SpinLock         : 0
