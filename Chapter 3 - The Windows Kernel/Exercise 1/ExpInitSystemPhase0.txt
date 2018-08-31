@@ -1,0 +1,31 @@
+...
+
+fffff800`02dcabc1 488d05a898c9ff  lea     rax,[nt!ExpSystemResourcesList (fffff800`02a64470)]
+fffff800`02dcabc8 488d0d0995c9ff  lea     rcx,[nt!ExpEnvironmentLock+0x18 (fffff800`02a640d8)]
+fffff800`02dcabcf 488905a298c9ff  mov     qword ptr [nt!ExpSystemResourcesList+0x8 (fffff800`02a64478)],rax ;Flink
+fffff800`02dcabd6 4889059398c9ff  mov     qword ptr [nt!ExpSystemResourcesList (fffff800`02a64470)],rax ;Blink
+
+...
+
+fffff800`02dcaf09 5f              pop     rdi
+fffff800`02dcaf0a c3              ret
+
+*After the command " dt nt!_ERESOURCE fffff800`02a64470 " we see that 
+ nt!ExpSystemResourcesList at offset 0x000 is of type _LIST_ENTRY*
+
+kd> dt nt!_ERESOURCE fffff800`02a64470
+   +0x000 SystemResourcesList : _LIST_ENTRY [ 0xfffff800`02a645e0 - 0xfffff800`02a8d5a0 ]
+   +0x010 OwnerTable       : 0xffffffff`fd9da600 _OWNER_ENTRY
+   +0x018 ActiveCount      : 0n0
+   +0x01a Flag             : 0
+   +0x020 SharedWaiters    : (null) 
+   +0x028 ExclusiveWaiters : (null) 
+   +0x030 OwnerEntry       : _OWNER_ENTRY
+   +0x040 ActiveEntries    : 0
+   +0x044 ContentionCount  : 0
+   +0x048 NumberOfSharedWaiters : 0
+   +0x04c NumberOfExclusiveWaiters : 0
+   +0x050 Reserved2        : (null) 
+   +0x058 Address          : (null) 
+   +0x058 CreatorBackTraceIndex : 0
+   +0x060 SpinLock         : 0

@@ -1,0 +1,32 @@
+...
+
+fffff800`02dde8b2 488d0d4756c8ff  lea     rcx,[nt!ExpWakeTimerList (fffff800`02a63f00)]
+fffff800`02dde8b9 488d15302dfeff  lea     rdx,[nt! ?? ::PBOPGDP::`string' (fffff800`02dc15f0)]
+fffff800`02dde8c0 48890d4156c8ff  mov     qword ptr [nt!ExpWakeTimerList+0x8 (fffff800`02a63f08)],rcx ;Blink
+fffff800`02dde8c7 48890d3256c8ff  mov     qword ptr [nt!ExpWakeTimerList (fffff800`02a63f00)],rcx ;Flink
+fffff800`02dde8ce 488d4c2430      lea     rcx,[rsp+30h]
+
+...
+
+fffff800`02dde959 c3              ret
+
+* nt!ExpWakeTimerList at offset 0x000 is of typr _LIST_ENTRY => List Head *
+
+kd> x nt!ExpWakeTimerList
+fffff800`02a63f00 nt!ExpWakeTimerList = <no type information>
+kd> dt nt!_ERESOURCE fffff800`02a63f00
+   +0x000 SystemResourcesList : _LIST_ENTRY [ 0x00000000`00000000 - 0x0 ]
+   +0x010 OwnerTable       : (null) 
+   +0x018 ActiveCount      : 0n0
+   +0x01a Flag             : 0
+   +0x020 SharedWaiters    : (null) 
+   +0x028 ExclusiveWaiters : (null) 
+   +0x030 OwnerEntry       : _OWNER_ENTRY
+   +0x040 ActiveEntries    : 0
+   +0x044 ContentionCount  : 0
+   +0x048 NumberOfSharedWaiters : 0
+   +0x04c NumberOfExclusiveWaiters : 0
+   +0x050 Reserved2        : (null) 
+   +0x058 Address          : (null) 
+   +0x058 CreatorBackTraceIndex : 0
+   +0x060 SpinLock         : 0

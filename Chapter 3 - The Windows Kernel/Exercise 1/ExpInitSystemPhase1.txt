@@ -1,0 +1,95 @@
+
+NOTHING FOUND!
+
+nt!ExpInitSystemPhase1:
+fffff800`02dedf30 488bc4          mov     rax,rsp
+fffff800`02dedf33 48895808        mov     qword ptr [rax+8],rbx
+fffff800`02dedf37 48896810        mov     qword ptr [rax+10h],rbp
+fffff800`02dedf3b 48897018        mov     qword ptr [rax+18h],rsi
+fffff800`02dedf3f 48897820        mov     qword ptr [rax+20h],rdi
+fffff800`02dedf43 4154            push    r12
+fffff800`02dedf45 4883ec20        sub     rsp,20h
+fffff800`02dedf49 41bc01000000    mov     r12d,1
+fffff800`02dedf4f c70513f7f9ff41746f6d mov dword ptr [nt!RtlpAtomAllocateTag (fffff800`02d8d66c)],6D6F7441h
+fffff800`02dedf59 e8b2dbfdff      call    nt!ExpInitializePushLocks (fffff800`02dcbb10)
+fffff800`02dedf5e e80d6efdff      call    nt!ExpInitializeExtensions (fffff800`02dc4d70)
+fffff800`02dedf63 33ed            xor     ebp,ebp
+fffff800`02dedf65 48892d2466c7ff  mov     qword ptr [nt!ExpKeyManipLock (fffff800`02a64590)],rbp
+fffff800`02dedf6c e82f5cffff      call    nt!ExpWorkerInitialization (fffff800`02de3ba0)
+fffff800`02dedf71 410fb6f4        movzx   esi,r12b
+fffff800`02dedf75 3bc5            cmp     eax,ebp
+fffff800`02dedf77 8b058f90d0ff    mov     eax,dword ptr [nt!KeNumberProcessors (fffff800`02af700c)]
+fffff800`02dedf7d 8bfd            mov     edi,ebp
+fffff800`02dedf7f 0f4cf5          cmovl   esi,ebp
+fffff800`02dedf82 3bc5            cmp     eax,ebp
+fffff800`02dedf84 7620            jbe     nt!ExpInitSystemPhase1+0x76 (fffff800`02dedfa6)
+
+nt!ExpInitSystemPhase1+0x56:
+fffff800`02dedf86 488d1db39cd0ff  lea     rbx,[nt!KiProcessorBlock (fffff800`02af7c40)]
+
+nt!ExpInitSystemPhase1+0x5d:
+fffff800`02dedf8d 488b0b          mov     rcx,qword ptr [rbx]
+fffff800`02dedf90 e8fb8cbfff      call    nt!ExInitializeProcessor (fffff800`029e6c90)
+fffff800`02dedf95 8b057190d0ff    mov     eax,dword ptr [nt!KeNumberProcessors (fffff800`02af700c)]
+fffff800`02dedf9b 4103fc          add     edi,r12d
+fffff800`02dedf9e 4883c308        add     rbx,8
+fffff800`02dedfa2 3bf8            cmp     edi,eax
+fffff800`02dedfa4 72e7            jb      nt!ExpInitSystemPhase1+0x5d (fffff800`02dedf8d)
+
+nt!ExpInitSystemPhase1+0x76:
+fffff800`02dedfa6 e885fcfeff      call    nt!ExpEventInitialization (fffff800`02dddc30)
+fffff800`02dedfab f6d8            neg     al
+fffff800`02dedfad 1adb            sbb     bl,bl
+fffff800`02dedfaf 4022de          and     bl,sil
+fffff800`02dedfb2 e8b9f9feff      call    nt!ExpEventPairInitialization (fffff800`02ddd970)
+fffff800`02dedfb7 f6d8            neg     al
+fffff800`02dedfb9 401aff          sbb     dil,dil
+fffff800`02dedfbc 4022fb          and     dil,bl
+fffff800`02dedfbf e8fcfafeff      call    nt!ExpMutantInitialization (fffff800`02dddac0)
+fffff800`02dedfc4 f6d8            neg     al
+fffff800`02dedfc6 1adb            sbb     bl,bl
+fffff800`02dedfc8 4022df          and     bl,dil
+fffff800`02dedfcb e8202fffff      call    nt!ExpInitializeCallbacks (fffff800`02de0ef0)
+fffff800`02dedfd0 f6d8            neg     al
+fffff800`02dedfd2 401aff          sbb     dil,dil
+fffff800`02dedfd5 4022fb          and     dil,bl
+fffff800`02dedfd8 e8b3fbfeff      call    nt!ExpSemaphoreInitialization (fffff800`02dddb90)
+fffff800`02dedfdd f6d8            neg     al
+fffff800`02dedfdf 1adb            sbb     bl,bl
+fffff800`02dedfe1 4022df          and     bl,dil
+fffff800`02dedfe4 e89708ffff      call    nt!ExpTimerInitialization (fffff800`02dde880)
+fffff800`02dedfe9 f6d8            neg     al
+fffff800`02dedfeb 401aff          sbb     dil,dil
+fffff800`02dedfee 4022fb          and     dil,bl
+fffff800`02dedff1 e81afafeff      call    nt!ExpProfileInitialization (fffff800`02ddda10)
+fffff800`02dedff6 f6d8            neg     al
+fffff800`02dedff8 451ad2          sbb     r10b,r10b
+fffff800`02dedffb 4422d7          and     r10b,dil
+fffff800`02dedffe e8ed8cfdff      call    nt!ExpUuidInitialization (fffff800`02dc6cf0)
+fffff800`02dee003 f6d8            neg     al
+fffff800`02dee005 1adb            sbb     bl,bl
+fffff800`02dee007 4122da          and     bl,r10b
+fffff800`02dee00a e8912bffff      call    nt!ExpKeyedEventInitialization (fffff800`02de0ba0)
+fffff800`02dee00f 0fb6fb          movzx   edi,bl
+fffff800`02dee012 3bc5            cmp     eax,ebp
+fffff800`02dee014 0f4cfd          cmovl   edi,ebp
+fffff800`02dee017 e8b4fcfeff      call    nt!ExpWin32Initialization (fffff800`02dddcd0)
+fffff800`02dee01c f6d8            neg     al
+fffff800`02dee01e 1adb            sbb     bl,bl
+fffff800`02dee020 4022df          and     bl,dil
+fffff800`02dee023 e878f4ffff      call    nt!ExpWorkerFactoryInitialization (fffff800`02ded4a0)
+fffff800`02dee028 418bcc          mov     ecx,r12d
+fffff800`02dee02b 3bc5            cmp     eax,ebp
+fffff800`02dee02d 0f4cdd          cmovl   ebx,ebp
+fffff800`02dee030 e8eb7fffff      call    nt!ExpMicrocodeInitialization (fffff800`02de6020)
+fffff800`02dee035 418bcc          mov     ecx,r12d
+fffff800`02dee038 e8936dfdff      call    nt!ExpUpdateProductSuiteType (fffff800`02dc4dd0)
+fffff800`02dee03d e87e88ffff      call    nt!ExpInitializePcw (fffff800`02de68c0)
+fffff800`02dee042 488b6c2438      mov     rbp,qword ptr [rsp+38h]
+fffff800`02dee047 488b742440      mov     rsi,qword ptr [rsp+40h]
+fffff800`02dee04c 488b7c2448      mov     rdi,qword ptr [rsp+48h]
+fffff800`02dee051 8ac3            mov     al,bl
+fffff800`02dee053 488b5c2430      mov     rbx,qword ptr [rsp+30h]
+fffff800`02dee058 4883c420        add     rsp,20h
+fffff800`02dee05c 415c            pop     r12
+fffff800`02dee05e c3              ret

@@ -1,0 +1,35 @@
+...
+
+fffff800`02df4dc3 48b83000000080f7ffff 	mov rax,0FFFFF78000000030h
+fffff800`02df4dcd 664489354b1fcdff 		mov     word ptr [nt!NtSystemRoot (fffff800`02ac6d20)],r14w ;Flink
+fffff800`02df4dd5 4889054c1fcdff  		mov     qword ptr [nt!NtSystemRoot+0x8 (fffff800`02ac6d28)],rax ;Blink
+
+...
+
+fffff800`02df55d5 415f            pop     r15
+fffff800`02df55d7 415e            pop     r14
+fffff800`02df55d9 415d            pop     r13
+fffff800`02df55db 415c            pop     r12
+fffff800`02df55dd 5f              pop     rdi
+fffff800`02df55de c3              ret
+
+* We have to make sure that rax is indeed of type _LIST_ENTRY *
+* We see below that at the address 0FFFFF78000000030 resides _LIST_ENTRY. We now know for sure that rax is of type 
+_LIST_ENTRY (because we have the instruction mov rax,0FFFFF78000000030h)*
+
+kd> dt nt!_ERESOURCE 0FFFFF78000000030
+   +0x000 SystemResourcesList : _LIST_ENTRY [ 0x0057005c`003a0043 - 0x6f0064`006e0069 ]
+   +0x010 OwnerTable       : 0x00000000`00730077 _OWNER_ENTRY
+   +0x018 ActiveCount      : 0n0
+   +0x01a Flag             : 0
+   +0x020 SharedWaiters    : (null) 
+   +0x028 ExclusiveWaiters : (null) 
+   +0x030 OwnerEntry       : _OWNER_ENTRY
+   +0x040 ActiveEntries    : 0
+   +0x044 ContentionCount  : 0
+   +0x048 NumberOfSharedWaiters : 0
+   +0x04c NumberOfExclusiveWaiters : 0
+   +0x050 Reserved2        : (null) 
+   +0x058 Address          : (null) 
+   +0x058 CreatorBackTraceIndex : 0
+   +0x060 SpinLock         : 0
